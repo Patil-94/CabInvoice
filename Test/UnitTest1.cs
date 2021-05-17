@@ -11,24 +11,21 @@ namespace Test
     public class Tests
     {
         /// <summary>
-        /// Givens the multiple rides should return invoice summary with average fare.  UC3
+        /// Test Case UC-5 to Calculate Fare for Primium Ride type
         /// </summary>
         [TestMethod]
-        public void GivenMultipleRidesShouldReturnInvoiceSummarywithAverageFare()
+        public void GivenRides_WhenPremiumAndNormal_ShouldSupportBoth()
         {
             //Creating instance of invoice generator 
-            InvoiceGenerator invoiceGenerator = new InvoiceGenerator(RideType.NORMAL);
-            Ride[] rides = { new Ride(2.0, 5), new Ride(0.1, 1) };
-            RideRepository rideRepository = new RideRepository();
-            string userId = "Dhiraj";
-            rideRepository.AddRide(userId, rides);
-            Ride[] rideData = rideRepository.GetRides(userId);
-            //Generating Summary for rides
-            InvoiceSummary summary = invoiceGenerator.CalculateFare(rides);
-            InvoiceSummary expectedSummary = new InvoiceSummary(2, 30.0,15);
+            InvoiceGenerator invoiceGenerator = new InvoiceGenerator(RideType.PREMIUM);
+            double distance = 3.0;
+            int time = 20;
 
-            //Asserting values with average in equals to formula in invoice summary
-            Assert.AreEqual(expectedSummary, summary);
+            double fare = invoiceGenerator.CalculateFare(distance, time);
+            double expected = 85;
+
+            //Asserting Values
+            Assert.AreEqual(expected, fare);
         }
     }
 }
